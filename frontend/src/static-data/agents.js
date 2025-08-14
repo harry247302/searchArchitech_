@@ -1,0 +1,78 @@
+
+
+const agents = [
+  {
+    id: 1,
+    name: "Ravi Sharma",
+    image: "/agents/image.png",
+    rating: 4.8,
+    phone: "+91 98765 43210",
+    company: "Sunrise Realty",
+    license: "LIC#123456",
+  },
+  {
+    id: 2,
+    name: "Neha Kapoor",
+    image: "/agents/image.png",
+    rating: 4.5,
+    phone: "+91 99887 77665",
+    company: "Kapoor Estates",
+    license: "LIC#987654",
+  },
+  {
+    id: 3,
+    name: "Amit Verma",
+    image: "/agents/image.png",
+    rating: 5.0,
+    phone: "+91 88990 22334",
+    company: "Verma Properties",
+    license: "LIC#135790",
+  },
+  {
+    id: 4,
+    name: "Priya Singh",
+    image: "/agents/image.png",
+    rating: 5.0,
+    phone: "+91 88990 22334",
+    company: "Verma Properties",
+    license: "LIC#135790",
+  },
+  {
+    id: 5,
+    name: "Rahul Mehta",
+    image: "/agents/image.png",
+    rating: 4.7,
+    phone: "+91 77665 44332",
+    company: "Mehta Realty",
+    license: "LIC#246801",
+  },
+  {
+    id: 6,
+    name: "Sita Patel",
+    image: "/agents/image.png",
+    rating: 4.9,
+    phone: "+91 66554 33221",
+    company: "Patel Homes",
+    license: "LIC#369852",
+  },
+  {
+    id: 7,
+    name: "Sita Patel",
+    image: "/agents/image.png",
+    rating: 4.9,
+    phone: "+91 66554 33221",
+    company: "Patel Homes",
+    license: "LIC#369852",
+  },
+  {
+    id: 8,
+    name: "Sita Patel",
+    image: "/agents/image.png",
+    rating: 4.9,
+    phone: "+91 66554 33221",
+    company: "Patel Homes",
+    license: "LIC#369852",
+  },
+];
+
+export default agents;
