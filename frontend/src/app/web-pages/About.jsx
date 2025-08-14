@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Awards from "@/components/Awards";
 import Footer from "@/components/Footer";
-// import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar";
 
 
 export default function About() {

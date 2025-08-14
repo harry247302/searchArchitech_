@@ -20,7 +20,7 @@ import { updateArchitectsById } from "@/app/redux/slices/architectSlice/Architec
 const Main = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
-    first_name: 'asdfsd',
+    first_name: '',
     last_name: '',
     category: '',
     price: '',
@@ -65,7 +65,7 @@ const Main = () => {
   const handleCancel = () => {
     setIsEditing(false);
     setProfile({
-      first_name: 'asdfsd',
+      first_name: '',
       last_name: '',
       category: '',
       price: '',
