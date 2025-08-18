@@ -23,9 +23,14 @@ const signUp = async (req, res) => {
     company_name,
     gst_no,
     state_name,
+    payment_status,
+    opening_time,
+    closing_time,
+    start_weekday,
+    open_weekday,
+    website_link,
   } = req.body;
 
-  // console.log("BODY:", req.body);
   console.log("FILES:", req.files);
   try {
     const userCheck = await client.query(
@@ -41,19 +46,21 @@ const signUp = async (req, res) => {
 
     let profile_url = "";
     let company_brochure_url = "";
+    let catalog_photos = [];
+    let adhar_photos = [];
+    let pan_card_photos = [];
+    let videos = [];
 
     if (req.files?.profile_url?.[0]) {
       const profileResult = await cloudinary.uploader.upload(
         req.files.profile_url[0].path,
-        {
-          folder: "uploads",
-        }
+        { folder: "uploads" }
       );
       profile_url = profileResult.secure_url;
       fs.unlinkSync(req.files.profile_url[0].path);
     }
 
-    if (req.files?.company_brochure_url?.length) {
+    if (req.files?.company_brochure_url?.[0]) {
       const brochureResult = await cloudinary.uploader.upload(
         req.files.company_brochure_url[0].path,
         { folder: "uploads" }
@@ -62,16 +69,61 @@ const signUp = async (req, res) => {
       fs.unlinkSync(req.files.company_brochure_url[0].path);
     }
 
-    console.log(req.files, "++++++++++++++++++++++++++++++++++++++++++");
+    if (req.files?.catalog_photos?.length) {
+      for (const file of req.files.catalog_photos) {
+        const result = await cloudinary.uploader.upload(file.path, {
+          folder: "catalog",
+        });
+        catalog_photos.push(result.secure_url);
+        fs.unlinkSync(file.path);
+      }
+    }
+
+
+    if (req.files?.adhar_photos?.length) {
+      for (const file of req.files.adhar_photos) {
+        const result = await cloudinary.uploader.upload(file.path, {
+          folder: "adhar",
+        });
+        adhar_photos.push(result.secure_url);
+        fs.unlinkSync(file.path);
+      }
+    }
+
+    // Upload PAN card photo
+    if (req.files?.pan_card_photos?.length) {
+      for (const file of req.files.pan_card_photos) {
+        const result = await cloudinary.uploader.upload(file.path, {
+          folder: "pan",
+        });
+        pan_card_photos.push(result.secure_url);
+        fs.unlinkSync(file.path);
+      }
+    }
+
+    if (req.files?.videos?.length) {
+      for (const file of req.files.videos) {
+        const result = await cloudinary.uploader.upload(file.path, {
+          folder: "videos",
+          resource_type: "video", // important for videos
+        });
+        videos.push(result.secure_url);
+        fs.unlinkSync(file.path);
+      }
+    }
 
     const newUser = await client.query(
       `INSERT INTO architech (
         first_name, last_name, category, price, phone_number, email, password_hash,
         street_address, apartment, city, postal_code, company_name, gst_no, state_name,
-        profile_url, company_brochure_url
+        profile_url, company_brochure_url, payment_status, opening_time, closing_time,
+        start_weekday, open_weekday, catalog_photos, adhar_photos, pan_card_photos,
+        website_link, videos
       ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7,
-        $8, $9, $10, $11, $12, $13, $14, $15, $16
+        $1,$2,$3,$4,$5,$6,$7,
+        $8,$9,$10,$11,$12,$13,$14,
+        $15,$16,$17,$18,$19,$20,
+        $21,$22,$23,$24,$25,$26
       ) RETURNING *`,
       [
         first_name,
@@ -90,25 +142,20 @@ const signUp = async (req, res) => {
         state_name,
         profile_url,
         company_brochure_url,
+        payment_status || "no",
+        opening_time || null,
+        closing_time || null,
+        start_weekday || null,
+        open_weekday || null,
+        catalog_photos,
+        adhar_photos,
+        pan_card_photos,
+        website_link || null,
+        videos,
       ]
     );
 
     const user = newUser.rows[0];
-
-    // ✅ Generate JWT token (expires in 1 minute)
-    // const token = jwt.sign(
-    //   { id: user.id, email: user.email },
-    //   process.env.JWT_SECRET || "your_jwt_secret", // use strong secret in production
-    //   { expiresIn: "1h" } // 1 minute
-    // );
-
-    // ✅ Set token in cookie
-    // res.cookie("token", token, {
-    //   httpOnly: true,
-    //   maxAge: 7 * 24 * 60 * 60 , // 1 minute in milliseconds
-    //   secure: process.env.NODE_ENV === "production", // send cookie only over HTTPS in production
-    //   sameSite: "strict",
-    // });
 
     res.status(201).json({
       message: "Registered successfully",
@@ -121,6 +168,7 @@ const signUp = async (req, res) => {
       .json({ message: "Something went wrong", error: error.message });
   }
 };
+
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;

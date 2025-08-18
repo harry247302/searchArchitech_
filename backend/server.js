@@ -20,6 +20,7 @@ const ticketRrouter = require("./routes/Tickets.router");
 const admin_authRouter = require("./routes/Admin.auth.router");
 const ContactRouter = require("./routes/Contact.form.route");
 const VisitorRouter = require("./routes/Visitors.router");
+const lead_router = require("./routes/Leads.routers");
 
 dotenv.config({ path: "./config/config.env" });
 app.use(morgan("dev"));
@@ -73,6 +74,7 @@ app.use("/otpVerification", otpVerificationRouter);
 app.use("/feedback", feedback_router);
 app.use("/tickets", ticketRrouter);
 app.use("/contact", ContactRouter);
+app.use("/leads",lead_router)
 ///////////////////////////////////////////////////////////////server////////////////////
 app.get("/", (req, res) => {
   res.send("Pikachu...!");

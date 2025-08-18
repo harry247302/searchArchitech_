@@ -237,10 +237,49 @@ const delete_projects_by_architect = async (req, res) => {
   }
 };
 
+const getArchitectByUuid = async (req, res) => {
+  try {
+    const architect_uuid = req.params.uuid; // architect's UUID
+    console.log(
+      architect_uuid,
+      "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
+    );
+
+    // console.log("Logged in user:", req.user);
+
+    const result = await client.query(
+      "SELECT * FROM projects WHERE architect_uuid = $1 ORDER BY id DESC",
+      [architect_uuid]
+    );
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    res.status(500).json({ error: "Failed to fetch projects" });
+  }
+};
+
+
+
+const getRandomProjects = async (req, res) => {
+  try {
+    const result = await client.query(
+      "SELECT * FROM projects ORDER BY RANDOM() LIMIT 10"
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch random projects" });
+  }
+};
+
+
 module.exports = {
   getAllProjects,
   create_project,
   get_projects_by_architect,
   update_projects_by_architect,
+  getArchitectByUuid,
   delete_projects_by_architect,
+  getRandomProjects
 };
