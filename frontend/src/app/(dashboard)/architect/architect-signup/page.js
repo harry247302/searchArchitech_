@@ -1,6 +1,6 @@
 "use client"
 
-import ArchitectSignUp from '@/app/web-pages/ArchitectSignUp'
+import ArchitectSignUp from '@/app/(dashboard)/architect/architect-signup/ArchitectSignup'
 // import dynamic from 'next/dynamic';
 
 import React from 'react'

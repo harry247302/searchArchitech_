@@ -1,6 +1,6 @@
 "use client";
 
-import ArchitectLogin from "@/app/web-pages/ArchitectLogin";
+import ArchitectLogin from "@/app/(dashboard)/architect/architect-login/ArchitectLogin";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 

@@ -5,12 +5,12 @@ import styled from "styled-components";
 import toast from "react-hot-toast";
 import '@/styles/StyledWrapper.css';
 
-import { architectLogin, useArchitectLoginMutation } from "../redux/slices/architectSlice/ArchitectAuth";
+import { architectLogin, useArchitectLoginMutation } from "../../../redux/slices/architectSlice/ArchitectAuth";
 
 import bcrypt from 'bcryptjs';
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { getOtp } from "../redux/slices/getOtp/GetOtp";
+import { getOtp } from "../../../redux/slices/getOtp/GetOtp";
 import RouteChangeLoader from "@/components/RouteChangeLoader";
 
 

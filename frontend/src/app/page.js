@@ -16,6 +16,7 @@ import { fetchAllArchitects } from "./redux/slices/architectSlice/ArchitectSlice
 import { useDispatch } from "react-redux";
 import { getVisitorById } from "./redux/slices/visitorSlice/VisitorAuth";
 import BackToTop from "@/components/BackToTop";
+import ArchitectCategories from "@/components/ArchitectCategories";
 // import BackToTop from "@/components/BackToTop";
 
 export default function Home() {
@@ -39,7 +40,8 @@ useEffect(() => {
     <ToastContainer />
     <BackToTop/>
     <Banner />
-    <SuperAgents />
+    {/* <SuperAgents /> */}
+    <ArchitectCategories />
     <OurAchievements />
     <PremiumWallpapers />
     <Projects/>

@@ -118,7 +118,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/pages/architect-login"
+                  href="/architect/architect-login"
                   className="hover:underline font-bold"
                 >
                   Register as an Architect

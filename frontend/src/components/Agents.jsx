@@ -80,7 +80,7 @@ export default function Agents() {
               pressed={mode === "Agent"}
               onPressedChange={() => setMode("Agent")}
             > */}
-            <Link href="/super-agents">Agent</Link>
+            {/* <Link href="/super-agents">Agent</Link> */}
             {/* </Toggle> */}
             {/* <Toggle
               pressed={mode === "Agency"}
