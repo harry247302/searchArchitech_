@@ -4,25 +4,20 @@ import Link from 'next/link'
 import Image from 'next/image'
 import projects from '@/static-data/projects'
 import { Card, CardContent } from '@/components/ui/card'
-import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 import { fetchRandomProjects } from '@/app/redux/slices/projectSlice/ProjectSlice'
 
 export default function Projects() {
   const dispatch = useDispatch()
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const res = await dispatch(fetchRandomProjects())
-        console.log(res);
+    const fetchData = async () => {
+      const res = await dispatch(fetchRandomProjects())
+      console.log(res);
 
-      } catch (error) {
-        console.log(error);
-
-      }
     }
-    fetchProjects()
-  }, [])
+    fetchData()
+  })
   return (
     <section className="w-full bg-white py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
