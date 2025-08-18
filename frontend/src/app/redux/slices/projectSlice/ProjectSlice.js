@@ -73,6 +73,42 @@ export const get_projects_by_architect = createAsyncThunk(
 
 
 
+export const get_projects_by_architect_uuid = createAsyncThunk(
+  'projects/get_projects_by_architect',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/projects/fetchByArchitect`,
+        { withCredentials: true }
+      );
+      return response.data
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || error.message || 'Failed to fetch projects'
+      );
+    }
+  }
+);
+
+
+export const fetchRandomProjects = createAsyncThunk(
+  'projects/fetchRandomProjects',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/projects/fetchRandomProjects`,
+        { withCredentials: true }
+      );
+      return response.data
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || error.message || 'Failed to fetch projects'
+      );
+    }
+  }
+);
+
+
 const initialState = {
   projects: [],       // list of projects for get_projects_by_architect
   addedProject: null, // newly added project for addProject
@@ -112,6 +148,22 @@ const projectSlice = createSlice({
         state.projects = action.payload;
       })
       .addCase(get_projects_by_architect.rejected, (state, action) => {
+        state.loadingFetch = false;
+        state.errorFetch = action.payload || 'Failed to fetch projects';
+      })
+
+
+
+        // get_projects_by_architect
+      .addCase(fetchRandomProjects.pending, (state) => {
+        state.loadingFetch = true;
+        state.errorFetch = null;
+      })
+      .addCase(fetchRandomProjects.fulfilled, (state, action) => {
+        state.loadingFetch = false;
+        state.projects = action.payload;
+      })
+      .addCase(fetchRandomProjects.rejected, (state, action) => {
         state.loadingFetch = false;
         state.errorFetch = action.payload || 'Failed to fetch projects';
       });

@@ -4,8 +4,25 @@ import Link from 'next/link'
 import Image from 'next/image'
 import projects from '@/static-data/projects'
 import { Card, CardContent } from '@/components/ui/card'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { fetchRandomProjects } from '@/app/redux/slices/projectSlice/ProjectSlice'
 
 export default function Projects() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await dispatch(fetchRandomProjects())
+        console.log(res);
+
+      } catch (error) {
+        console.log(error);
+
+      }
+    }
+    fetchProjects()
+  }, [])
   return (
     <section className="w-full bg-white py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -40,9 +57,9 @@ export default function Projects() {
                 <p className="text-sm line-clamp-2">{project.description}</p>
                 <div>
                   <Link href='/pages/projects'>
-                <button className="mt-4 text-sm bg-primary text-black px-3 py-1 rounded-md self-start hover:bg-amber-950">
-                  View More
-                </button>
+                    <button className="mt-4 text-sm bg-primary text-black px-3 py-1 rounded-md self-start hover:bg-amber-950">
+                      View More
+                    </button>
                   </Link>
                 </div>
               </CardContent>

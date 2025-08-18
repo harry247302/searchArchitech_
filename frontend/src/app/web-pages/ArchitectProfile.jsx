@@ -44,6 +44,8 @@ import FeedBack from "./Feedback";
 
 export default function ArchitectProfile() {
   // time open useEffect
+  const projects = useSelector(state => state)
+  console.log(projects, "||||||||||||||||||||||||||||||||||||||||||");
 
   const [isOpen, setIsOpen] = useState(true);
 
