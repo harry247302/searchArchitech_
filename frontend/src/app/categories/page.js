@@ -1,11 +1,11 @@
 
-import Categories from '@/app/web-pages/Categories'
 import React from 'react'
+import AllCategories from '../web-pages/AllCategories';
 
 const page = () => {
   return (
     <>
-   <Categories />
+   <AllCategories />
     </>
   )
 }

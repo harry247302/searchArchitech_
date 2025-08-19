@@ -1,14 +1,14 @@
 "use client";
 
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 import React from "react";
 import Link from "next/link";
 import agents from "@/static-data/agents";
-import { Card, CardContent } from "@/components/ui/card";
+
 import Image from "next/image";
 import { Star, Phone } from "lucide-react";
 import { useState } from "react";
+import Footer from "../components/Footer";
+import { Card, CardContent } from "../components/ui/card";
 
 const ITEMS_PER_PAGE = 8;
 
@@ -103,39 +103,38 @@ const SuperAgents = () => {
                 </CardContent>
               </Card>
             ))}
-            </div>
+          </div>
 
-            {/* Pagination */}
-            <div className="mt-10 flex justify-center items-center gap-4">
+          {/* Pagination */}
+          <div className="mt-10 flex justify-center items-center gap-4">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-3 py-1 border rounded disabled:opacity-50"
+            >
+              Prev
+            </button>
+            {[...Array(totalPages)].map((_, index) => (
               <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="px-3 py-1 border rounded disabled:opacity-50"
-              >
-                Prev
-              </button>
-              {[...Array(totalPages)].map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => handlePageChange(index + 1)}
-                  className={`px-3 py-1 border rounded ${
-                    currentPage === index + 1 ? "bg-primary text-white" : ""
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                className={`px-3 py-1 border rounded ${currentPage === index + 1 ? "bg-primary text-white" : ""
                   }`}
-                >
-                  {index + 1}
-                </button>
-              ))}
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="px-3 py-1 border rounded disabled:opacity-50"
               >
-                Next
+                {index + 1}
               </button>
+            ))}
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 border rounded disabled:opacity-50"
+            >
+              Next
+            </button>
           </div>
         </div>
       </section>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

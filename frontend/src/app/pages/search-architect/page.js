@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import Search from "@/app/web-pages/Search";
-import Preloader from "@/components/Preloader";
+import Preloader from "@/app/components/Preloader";
+
 
 const Page = () => {
   return (

@@ -1,22 +1,13 @@
-// "use client";
-
-// import React, { useEffect } from "react";
-// import { useDispatch } from "react-redux";
+"use client"
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchRandomProjects } from "../redux/slices/projectSlice/ProjectSlice";
 
 const page = () => {
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   const fetchArchitect = async () => {
-  //     try {
-  //       const res = await dispatch(getVisitorById());
-  //       console.log(res, "Visitor Data-------------------------------------");
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchArchitect();
-  // }, []);
-
+    const dispatch = useDispatch()
+  useEffect(() => {    
+    dispatch(fetchRandomProjects())
+  }, [])
   return <div>page</div>;
 };
 

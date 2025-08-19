@@ -9,10 +9,14 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 // import RouteChangeLoader from "@/components/RouteChangeLoader";
 // import { Provider } from 'react-redux'
 // import { store } from "./store";
-import BackToTop from "@/components/BackToTop";
-import RouteChangeLoader from "@/components/RouteChangeLoader";
-import Navbar from "@/components/Navbar";
+// import BackToTop from "@/components/BackToTop";
+// import RouteChangeLoader from "@/components/RouteChangeLoader";
+// import Navbar from "@/components/Navbar";
 import VisitorFetcher from "./web-pages/VisitorFetcher";
+import BackToTop from "./components/BackToTop";
+import RouteChangeLoader from "./components/RouteChangeLoader";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +52,7 @@ export default function RootLayout({ children }) {
             <VisitorFetcher />
             <Navbar />
             {children}
+              <Footer />
             <BackToTop />
           </Providers>
         </GoogleOAuthProvider>

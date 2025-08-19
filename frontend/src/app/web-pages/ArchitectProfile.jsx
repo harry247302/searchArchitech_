@@ -1,6 +1,6 @@
 "use client";
 // import FeedBack from "@/app/web-pages/Feedback";
-import Footer from "@/components/Footer";
+// import Footer from "@/components/Footer";
 // import Navbar from "@/components/Navbar";
 // import { MapPin, Bed, Bath, Square } from "lucide-react";
 // import { demoProperties } from "@/static-data/properties";
@@ -32,15 +32,23 @@ import {
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
 
+// import {
+//   Breadcrumb,
+//   BreadcrumbItem,
+//   BreadcrumbLink,
+//   BreadcrumbList,
+//   BreadcrumbPage,
+//   BreadcrumbSeparator,
+// } from "@/components/ui/breadcrumb";
+import FeedBack from "./Feedback";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import FeedBack from "./Feedback";
+  BreadcrumbSeparator
+} from "../components/ui/breadcrumb";
 
 export default function ArchitectProfile() {
   // time open useEffect
@@ -700,7 +708,7 @@ export default function ArchitectProfile() {
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

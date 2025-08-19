@@ -8,8 +8,7 @@ const BASE_URL =
     ? process.env.NEXT_PUBLIC_DEV_URL
     : process.env.NEXT_PUBLIC_PROD_URL;
 
-// ----------------------------------
-// 🔹 Async Thunks
+
 export const updateArchitectsById = createAsyncThunk(
   "architech/updateById",
   async (formData, { rejectWithValue }) => {
@@ -38,6 +37,20 @@ export const fetchAllArchitects = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get(`${BASE_URL}/architech/fetchAll`, {
+        withCredentials: true,
+      });
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
+
+export const get_architect_filter_options = createAsyncThunk(
+  "architect/get_architect_filter_options",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(`${BASE_URL}/architech/get_architect_filter_options`, {
         withCredentials: true,
       });
       return res.data;
@@ -144,6 +157,7 @@ export const GetFilteration = createAsyncThunk(
 );
 
 
+
 const architectSlice = createSlice({
   name: "architect",
   initialState: {
@@ -151,6 +165,7 @@ const architectSlice = createSlice({
     filteration:[],
     dynamicArchitech:[],
     paginatedArchitects: [],
+    filter_option:[],
     selectedArchitect: null,
     loading: false,
     error: null,
@@ -274,6 +289,21 @@ const architectSlice = createSlice({
         state.dynamicArchitech = action.payload;
       })
       .addCase(dynamic_architech.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+
+      .addCase(get_architect_filter_options.pending, (state) => {
+       state.loading = true;
+       state.error = null;
+      })
+      .addCase(get_architect_filter_options.fulfilled, (state, action) => {
+        state.loading = false;
+        // Update selectedArchitect with the latest data
+        state.filter_option = action.payload.data;
+      })
+      .addCase(get_architect_filter_options.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

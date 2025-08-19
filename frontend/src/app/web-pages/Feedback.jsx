@@ -33,14 +33,14 @@ export default function FeedBack({ architect }) {
     const fetchFeedback = async (architect) => {
       try {
         const res = await dispatch(getFeedback(architect?.uuid));
-        console.log(res, "feedbacks,*-*-*-*-*-*-*-*-*/*/*/*/*/*/*-*-*-*-*-**");
+        console.log(res, "*-*-*-*-*-*-*-*-*/*/*/*/*/*/*-*-*-*-*-**");
 
         if (res?.meta?.requestStatus === "fulfilled") {
           const feedbackList = res.payload?.feedback || []; // correct path!
           // console.log(feedbackList)//////
           setFeedbacks(feedbackList);
         } else {
-          console.error("❌ Failed to fetch feedback:", res?.error || "Unknown error");
+          console.error(res);
           setFeedbacks([]);
         }
       } catch (error) {
@@ -92,7 +92,7 @@ export default function FeedBack({ architect }) {
 
     try {
       const res = await dispatch(submitForm(data));
-      console.log(res, "//////////////////////////////");
+      // console.log(res, "-------------------------------------")
       if (res.payload?.message === "Feedback submitted") {
         toast.success(res.payload.message);
         // Clear fields

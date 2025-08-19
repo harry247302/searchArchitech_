@@ -2,10 +2,11 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
+// import { Card, CardContent } from "./ui/card";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+// import Navbar from "./components/Navbar";
+// import Footer from "@/components/Footer";
+import { Card, CardContent } from "../components/ui/card";
 
 const categories = [
   {
@@ -33,9 +34,10 @@ const categories = [
 export default function Categories() {
   return (
     <>
-    {/* <Navbar /> */}
+      {/* <Navbar /> */}
       {/* Hero Section */}
-      <section className="relative h-64 md:h-80 w-full">
+      {/* <section className="relative h-64 md:h-80 w-full">
+
         <div className="absolute inset-0">
           <Image
             src="/categories-banner/breadcrumb.png"
@@ -58,11 +60,20 @@ export default function Categories() {
           </p>
           <h1 className="text-3xl sm:text-4xl font-bold">Product Category</h1>
         </div>
-      </section>
+      </section> */}
 
       {/* Categories Grid */}
       <section className="px-4 md:px-8 lg:px-16 py-16 bg-white text-gray-900">
         <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
+            <h2 className="text-3xl font-bold text-gray-800"></h2>
+            <Link
+              href="/categories"
+              className="text-2xl underline sm:text-base text-gray-800 font-semibold hover:underline"
+            >
+              Show All Categories
+            </Link>
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
             Explore Categories
           </h2>
@@ -88,7 +99,7 @@ export default function Categories() {
           </div>
         </div>
       </section>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

@@ -5,25 +5,22 @@ import { useSearchParams, useRouter } from "next/navigation";
 // import { useSearchParams, useNavigate } from 'react-router-dom';
 import { MapPin, Bed, Bath, Square } from "lucide-react";
 import { demoProperties } from "@/static-data/properties";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import SearchAllFilters from "@/components/SearchAllFilters";
 import Link from "next/link";
 import {
   fetchAllArchitects,
   GetFilteration,
 } from "../redux/slices/architectSlice/ArchitectSlice";
 import { useDispatch, useSelector } from "react-redux";
-// import { Property, FilterCriteria } from '../types/Property';
-
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+  BreadcrumbSeparator
+} from "../components/ui/breadcrumb";
+import SearchBanner from "../components/SearchAllFilters";
+
 
 const PropertyResults = () => {
   const dispatch = useDispatch();
@@ -39,12 +36,14 @@ const PropertyResults = () => {
     city: null,
     apartment: null,
     street_address: null,
+    skills: null,
+    company_name: null
   });
 
   const handleSearch = async () => {
-    console.log(filters, "---------------------------");
+    // console.log(filters, "---------------------------");
     const res = await dispatch(GetFilteration(filters));
-    console.log(res, "++++++++++++++++++++++++");
+    // console.log(res, "++++++++++++++++++++++++");
     if (res?.meta?.requestStatus === "fulfilled") {
       setArchitechFilter(res?.payload?.data);
     }
@@ -57,12 +56,6 @@ const PropertyResults = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // const filters = {
-  //   minBudget: parseInt(searchParams.get('minBudget') || '200000'),
-  //   maxBudget: parseInt(searchParams.get('maxBudget') || '1500000'),
-  //   location: searchParams.get('location') || 'All Locations',
-  //   propertyType: searchParams.get('propertyType') || 'All Types'
-  // };
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat("en-US", {
@@ -81,16 +74,15 @@ const PropertyResults = () => {
 
   return (
     <>
-      {/* <Navbar /> */}
-      {/* <SearchAllFilters/> */}
       <div className="min-h-screen bg-white flex">
         {/* Sidebar */}
-        <aside className="mt-15 w-[40%] p-4 sticky top-0 h-screen overflow-y-auto">
-          <SearchAllFilters
+        <aside className="mt-15 w-[30%] p-4 sticky top-0 h-screen overflow-y-auto">
+          <SearchBanner
             filters={filters}
             setFilters={setFilters}
             handleSearch={handleSearch}
           />
+
         </aside>
         <div className="mt-15 container mx-auto px-4 py-8">
           {/* Header */}
@@ -249,7 +241,7 @@ const PropertyResults = () => {
           )}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

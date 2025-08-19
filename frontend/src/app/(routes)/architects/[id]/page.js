@@ -18,7 +18,7 @@ export default async function ArchitectDetails({ params }) {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <div className="flex flex-col lg:flex-row gap-6 m-10 max-w-7xl mx-auto">
         <div className="w-full mt-10 p-2">

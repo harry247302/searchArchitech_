@@ -6,12 +6,8 @@ import "../../app/globals.css";
 
 import { Toaster } from "react-hot-toast";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-// import Preloader from "@/components/Preloader";
-// import RouteChangeLoader from "@/components/RouteChangeLoader";
-// import { Provider } from 'react-redux'
-// import { store } from "./store";
-import BackToTop  from "@/components/BackToTop";
 import { Providers } from "../redux/Provider";
+import BackToTop from "../components/BackToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
