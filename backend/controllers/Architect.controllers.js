@@ -354,6 +354,14 @@ const filter_architechs = async (req, res, next) => {
       postal_code,
       company_name,
       state_name,
+      opening_time,
+      closing_time,
+      start_weekday,
+      open_weekday,
+      min_rating,
+      max_rating,
+      experience,
+      skills, // comma-separated from frontend: e.g. skills=AutoCAD,SketchUp
     } = req.query;
 
     console.log("Query received:", req.query);
@@ -399,6 +407,52 @@ const filter_architechs = async (req, res, next) => {
       values.push(`%${state_name}%`);
     }
 
+    // 🕒 Time filters
+    if (opening_time) {
+      query += ` AND opening_time = $${i++}`;
+      values.push(opening_time);
+    }
+
+    if (closing_time) {
+      query += ` AND closing_time = $${i++}`;
+      values.push(closing_time);
+    }
+
+    // 📅 Weekday filters
+    if (start_weekday) {
+      query += ` AND start_weekday ILIKE $${i++}`;
+      values.push(`%${start_weekday}%`);
+    }
+
+    if (open_weekday) {
+      query += ` AND open_weekday ILIKE $${i++}`;
+      values.push(`%${open_weekday}%`);
+    }
+
+    // ⭐ Rating filters
+    if (min_rating && !isNaN(Number(min_rating))) {
+      query += ` AND average_rating >= $${i++}`;
+      values.push(Number(min_rating));
+    }
+
+    if (max_rating && !isNaN(Number(max_rating))) {
+      query += ` AND average_rating <= $${i++}`;
+      values.push(Number(max_rating));
+    }
+
+    // 🧑‍💼 Experience filter (currently text, so using ILIKE)
+    if (experience) {
+      query += ` AND experience ILIKE $${i++}`;
+      values.push(`%${experience}%`);
+    }
+
+    // 🛠️ Skills filter
+    if (skills) {
+      const skillsArray = skills.split(",").map((s) => s.trim());
+      query += ` AND skills @> $${i++}`;
+      values.push(skillsArray);
+    }
+
     query += ` ORDER BY price ASC`;
 
     console.log("🧪 Final Query:", query);
@@ -409,10 +463,41 @@ const filter_architechs = async (req, res, next) => {
     res.status(200).json({
       success: true,
       data: result.rows,
-      count: result.rowCount
+      count: result.rowCount,
     });
   } catch (error) {
     console.error("Error filtering architects:", error);
+    next(error);
+  }
+};
+
+const get_architect_filter_options = async (req, res, next) => {
+  try {
+    const query = `
+      SELECT
+        array_agg(DISTINCT category)       AS categories,
+        array_agg(DISTINCT city)           AS cities,
+        array_agg(DISTINCT postal_code)    AS postal_codes,
+        array_agg(DISTINCT company_name)   AS company_names,
+        array_agg(DISTINCT state_name)     AS state_names,
+        array_agg(DISTINCT opening_time)   AS opening_times,
+        array_agg(DISTINCT closing_time)   AS closing_times,
+        array_agg(DISTINCT experience)     AS experiences,
+        (
+          SELECT array_agg(DISTINCT s)
+          FROM architech a, unnest(a.skills) AS s
+        ) AS skills
+      FROM architech;
+    `;
+
+    const result = await client.query(query);
+
+    res.status(200).json({
+      success: true,
+      data: result.rows[0],
+    });
+  } catch (error) {
+    console.error("Error fetching architect filter options:", error.message);
     next(error);
   }
 };
@@ -449,5 +534,5 @@ const dynamic_architech_data = async (req, res, next) => {
 
 
   
-  module.exports = {dynamic_architech_data, getArchitectProfileById, delete_multiple_architechs,fetch_all_architech,fetch_architech_by_pagination, getArchitectById,update_architech_by_id,filter_architechs};
+  module.exports = {get_architect_filter_options,dynamic_architech_data, getArchitectProfileById, delete_multiple_architechs,fetch_all_architech,fetch_architech_by_pagination, getArchitectById,update_architech_by_id,filter_architechs};
   

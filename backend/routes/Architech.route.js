@@ -11,6 +11,7 @@ const {
   fetch_architech_by_pagination,
   getArchitectProfileById,
   dynamic_architech_data,
+  get_architect_filter_options,
 } = require("../controllers/Architect.controllers");
 const { protect } = require("../middleware/Auth.middleware");
 const upload = multer({ dest: "uploads/" });
@@ -21,6 +22,7 @@ architech_router.get("/fetchById", protect, getArchitectById);
 architech_router.get("/fetchProfileById/:uuid", getArchitectProfileById);
 architech_router.get("/fetchByPagination", fetch_architech_by_pagination);
 architech_router.get("/fetchAll", fetch_all_architech);
+architech_router.get("/get_architect_filter_options",get_architect_filter_options)
 architech_router.post("/delete-multiple", protect, delete_multiple_architechs);
 architech_router.put(
   "/update",
