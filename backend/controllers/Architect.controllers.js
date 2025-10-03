@@ -111,8 +111,8 @@ const getArchitectProfileById = async (req, res) => {
 const update_architech_by_id = async (req, res, next) => {
   try {
     const uuid = req.user.uuid;
-    console.log("UUID from middleware:", uuid);
-    console.log("Request body:", req.body);
+    // console.log("UUID from middleware:", uuid);
+    // console.log("Request body:", req.body);
 
     if (!uuid || typeof uuid !== 'string' || uuid.trim() === '') {
       return res.status(400).json({ message: 'Valid UUID is required' });
