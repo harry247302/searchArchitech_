@@ -80,7 +80,7 @@ const ArchitectLogin = () => {
   
       // Proceed to login
       const result = await dispatch(architectLogin(formData));
-  console.log(result);
+       console.log(result);
   
       // Check login success
       if (result?.payload?.message === 'Login successful') {
